@@ -13,5 +13,4 @@ import { LayoutsModule } from './layouts/layouts.module';
     styleUrl: './app.component.scss'
 })
 export class AppComponent {
-    title = 'frontend';
 }

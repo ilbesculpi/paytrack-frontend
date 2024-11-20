@@ -18,14 +18,4 @@ describe('AppComponent', () => {
         expect(app).toBeTruthy();
     });
 
-    it(`should have the 'frontend' title`, () => {
-        expect(app.title).toEqual('frontend');
-    });
-
-    it('should render title', () => {
-        fixture.detectChanges();
-        const compiled = fixture.nativeElement as HTMLElement;
-        expect(compiled.querySelector('h1')?.textContent).toContain('Hello, frontend');
-    });
-
 });
