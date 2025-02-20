@@ -57,6 +57,9 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "es": {
+              "browserTarget": "frontend:build:es"
             }
           },
           "defaultConfiguration": "production"
@@ -99,6 +102,12 @@
             ],
             "scripts": []
           }
+        }
+      },
+      "i18n": {
+        "sourceLocale": "en",
+        "locales": {
+          "es": "src/locale/messages.es.json"
         }
       }
     }

@@ -3,16 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BootslanderModule } from './bootslander/bootslander.module';
 
-
 @NgModule({
     declarations: [],
     imports: [
         CommonModule,
-        BootslanderModule,
+        BootslanderModule
     ],
-    exports: [
-        BootslanderModule,
-    ]
+    exports: [BootslanderModule],
 })
 export class LayoutsModule {
 }
