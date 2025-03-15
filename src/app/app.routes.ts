@@ -19,6 +19,7 @@ export const routes: Routes = [
     },
     {
         path: 'login',
+        pathMatch: 'full',
         component: AuthLayoutComponent,
         children: [
             {
@@ -27,5 +28,9 @@ export const routes: Routes = [
                 component: LoginComponent
             }
         ]
+    },
+    {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
     }
 ];

@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
     ],
     exports: [
         AuthLayoutComponent,
+        RouterModule,
     ]
 })
 export class AuthModule {
