@@ -6,7 +6,7 @@ import { lastValueFrom } from 'rxjs';
 export const authGuard: CanActivateFn = (route, state) => {
     const authService = inject(AuthService);
     const router = inject(Router);
-    if( !authService.isAuthenticated() ) {
+    if( !authService.isAuthenticated ) {
         return router.parseUrl('/login');
     }
     return true;

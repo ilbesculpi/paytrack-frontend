@@ -8,6 +8,7 @@ export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
+        title: 'Payame Inicio',
         component: MainLayoutComponent,
         children: [
             {
