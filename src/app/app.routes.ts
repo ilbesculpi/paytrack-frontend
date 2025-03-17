@@ -20,6 +20,7 @@ export const routes: Routes = [
     {
         path: 'login',
         pathMatch: 'full',
+        title: 'Inicia Sesión',
         component: AuthLayoutComponent,
         children: [
             {
