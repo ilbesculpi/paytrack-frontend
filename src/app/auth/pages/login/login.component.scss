@@ -1,0 +1,44 @@
+.login-box,
+.register-box {
+  width: 480px;
+}
+
+@media (max-width: 576px) {
+  .login-box,
+  .register-box {
+    margin-top: .5rem;
+    width: 90%;
+  }
+}
+
+.login-box .card,
+.register-box .card {
+  margin-bottom: 0;
+}
+
+.login-logo,
+.register-logo {
+  font-size: 2.1rem;
+  font-weight: 300;
+  margin-bottom: .9rem;
+  text-align: center;
+  img {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 678px) {
+  .login-logo,
+  .register-logo {
+    img {
+      width: 60%;
+      margin: 0 auto;
+    }
+  }
+}
+
+.login-logo a,
+.register-logo a {
+  color: #495057;
+}

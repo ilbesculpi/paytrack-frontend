@@ -9,7 +9,6 @@ declare let window: any;
 })
 export class MainLayoutComponent implements OnInit {
 
-
     ngOnInit() {
         window.initTheme && window.initTheme();
     }
