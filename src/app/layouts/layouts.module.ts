@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { BootslanderModule } from './bootslander/bootslander.module';
 import { AuthModule } from './auth/auth.module';
-import { RouterModule } from '@angular/router';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
     declarations: [],
@@ -11,11 +12,13 @@ import { RouterModule } from '@angular/router';
         RouterModule,
         BootslanderModule,
         AuthModule,
+        AdminModule,
     ],
     exports: [
+        RouterModule,
         BootslanderModule,
         AuthModule,
-        RouterModule,
+        AdminModule,
     ],
 })
 export class LayoutsModule {
