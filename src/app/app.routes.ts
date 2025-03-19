@@ -6,6 +6,7 @@ import { LoginComponent } from './auth/pages/login/login.component';
 import { DashboardLayoutComponent } from './layouts/admin/dashboard-layout/dashboard-layout.component';
 import { LogoutComponent } from './auth/pages/logout/logout.component';
 import { authResolver } from './auth/services/auth.resolver';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
     {
@@ -46,5 +47,9 @@ export const routes: Routes = [
             user: authResolver
         },
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    },
+    {
+        path: '**', // Wildcard route for 404
+        component: NotFoundComponent
     }
 ];
