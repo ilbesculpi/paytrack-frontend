@@ -3,6 +3,9 @@ import { MainLayoutComponent } from './layouts/bootslander/main-layout/main-layo
 import { AuthLayoutComponent } from './layouts/auth/auth-layout/auth-layout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './auth/pages/login/login.component';
+import { DashboardLayoutComponent } from './layouts/admin/dashboard-layout/dashboard-layout.component';
+import { LogoutComponent } from './auth/pages/logout/logout.component';
+import { authResolver } from './auth/services/auth.resolver';
 
 export const routes: Routes = [
     {
@@ -32,7 +35,16 @@ export const routes: Routes = [
         ]
     },
     {
+        path: 'logout',
+        pathMatch: 'full',
+        component: LogoutComponent
+    },
+    {
         path: 'admin',
+        component: DashboardLayoutComponent,
+        resolve: {
+            user: authResolver
+        },
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
     }
 ];
