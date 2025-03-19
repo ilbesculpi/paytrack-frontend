@@ -18,6 +18,12 @@ const routes: Routes = [
         title: 'Dashboard'
     },
     {
+        path: 'customers',
+        loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule),
+        canActivate: [authGuard],
+        title: 'Clientes'
+    },
+    {
         path: '**',
         component: NotFoundComponent
     }
