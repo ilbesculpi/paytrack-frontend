@@ -12,12 +12,19 @@ export class HomeComponent implements OnInit {
     isLoading: boolean = false;
     customers: Customer[] = [];
     displayMode: 'grid' | 'list' = 'grid';
+    searchTerm: string = '';
 
     constructor(private customersService: CustomerService) {
     }
 
     ngOnInit() {
-        this.loadCustomers();
+        // this.loadCustomers();
+    }
+
+    get filteredCustomers(): Customer[] {
+        return this.customers.filter(customer => {
+            return customer.full_name.toLowerCase().includes(this.searchTerm.toLowerCase());
+        });
     }
 
     private loadCustomers() {
