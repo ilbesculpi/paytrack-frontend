@@ -7,7 +7,7 @@ import { CustomerService } from '../../../services';
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class CustomersHomeComponent implements OnInit {
 
     isLoading: boolean = false;
     customers: Customer[] = [];
