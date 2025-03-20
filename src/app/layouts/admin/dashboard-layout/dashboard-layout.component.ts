@@ -16,12 +16,12 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     user: User | undefined;
 
     constructor(private renderer: Renderer2, private route: ActivatedRoute) {
-        this.renderer.addClass(document.body, 'hold-transition');
-        this.renderer.addClass(document.body, 'sidebar-mini');
-        this.renderer.addClass(document.body, 'layout-fixed');
     }
 
     ngOnInit() {
+        this.renderer.addClass(document.body, 'hold-transition');
+        this.renderer.addClass(document.body, 'sidebar-mini');
+        this.renderer.addClass(document.body, 'layout-fixed');
         this.route.data.subscribe((data) => {
             console.log(data);
             this.user = data['user'];

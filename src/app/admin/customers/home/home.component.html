@@ -1,0 +1,121 @@
+<div class="content-wrapper">
+
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Clientes</h1>
+        </div>
+        <div class="col-sm-6">
+          <div class="float-right">
+            <a class="btn btn-success mr-2" routerLink="/admin/customers/create">
+              <i class="fas fa-plus"></i> Agregar Cliente
+            </a>
+            <div class="btn-group" role="group">
+              <button type="button"
+                class="btn"
+                [ngClass]="{'btn-primary': displayMode === 'grid', 'btn-outline-primary': displayMode !== 'grid'}"
+                (click)="toggleViewMode('grid')">
+                <i class="fas fa-th-large"></i>
+              </button>
+              <button type="button"
+                  class="btn"
+                  [ngClass]="{'btn-primary': displayMode === 'list', 'btn-outline-primary': displayMode !== 'list'}"
+                  (click)="toggleViewMode('list')">
+                <i class="fas fa-list"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content">
+
+    <!-- Search -->
+    <div class="container-fluid my-4">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
+        <input type="text"
+          class="form-control"
+          placeholder="Buscar por nombre..."
+          [(ngModel)]="searchTerm">
+      </div>
+    </div>
+
+    <div class="container-fluid">
+
+      <!-- Empty array results -->
+      <div *ngIf="customers.length === 0" class="alert alert-warning">
+        <div class="p-2"><i class="fas fa-exclamation-triangle mr-2"></i> No hay clientes para mostrar.</div>
+      </div>
+
+      <!-- Empty search results -->
+      <div *ngIf="customers.length > 0 && filteredCustomers.length === 0" class="no-results">
+        <i class="fas fa-search"></i>
+        <p>No hay resultados para la búsqueda <strong>"{{searchTerm}}"</strong></p>
+      </div>
+
+      <!-- Grid View -->
+      <div class="row" *ngIf="displayMode === 'grid' && filteredCustomers.length > 0">
+        <div class="col-12 col-sm-6 col-md-4" *ngFor="let customer of filteredCustomers">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ customer.full_name }}</h5>
+              <div class="card-text my-3">
+                <div class="mt-2"><i class="fas fa-envelope mr-2"></i>{{ customer.email }}</div>
+                <div class="mt-2"><i class="fas fa-phone mr-2"></i>{{ customer.telephone }}</div>
+                <div class="mt-2"><i class="fas fa-map-marker-alt mr-2"></i>{{ customer.address }}</div>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-sm btn-info mr-2">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-sm btn-danger">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- List View -->
+      <div class="table-responsive" *ngIf="displayMode === 'list' && filteredCustomers.length > 0">
+        <table class="table table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let customer of filteredCustomers">
+              <td>{{ customer.full_name }}</td>
+              <td>{{ customer.email }}</td>
+              <td>{{ customer.telephone }}</td>
+              <td>{{ customer.address }}</td>
+              <td>
+                <button class="btn btn-sm btn-info mr-2">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-danger">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</div>
