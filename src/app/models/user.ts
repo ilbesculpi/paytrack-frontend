@@ -1,20 +1,20 @@
 export interface UserJson {
-    id: number;
+    id?: number;
     name: string;
     email: string;
-    created_at: string;
-    updated_at: string;
+    created_at?: string;
+    updated_at?: string;
 }
 
 export class User {
 
-    id!: number;
-    name!: string;
-    email!: string;
-    created_at!: string;
-    updated_at!: string;
+    id?: number;
+    name: string = '';
+    email: string = '';
+    created_at?: string;
+    updated_at?: string;
 
-    constructor(data: UserJson) {
+    constructor(data: Partial<UserJson>) {
         Object.assign(this, data);
     }
 
