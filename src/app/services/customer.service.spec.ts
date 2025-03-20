@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-
 import { CustomerService } from './customer.service';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApiService } from './api.service';
 
 describe('CustomerService', () => {
@@ -12,7 +11,7 @@ describe('CustomerService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [provideHttpClientTesting()],
+            imports: [HttpClientTestingModule],
             providers: [CustomerService, ApiService]
         });
         service = TestBed.inject(CustomerService);

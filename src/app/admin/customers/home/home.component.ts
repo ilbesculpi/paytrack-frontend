@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.loadCustomers();
+        this.loadCustomers();
     }
 
     get filteredCustomers(): Customer[] {
