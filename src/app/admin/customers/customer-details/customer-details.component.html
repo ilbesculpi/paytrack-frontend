@@ -1,0 +1,135 @@
+<div class="content-wrapper">
+
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Customer Details</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content">
+
+    <div class="container-fluid">
+
+      <!-- Customer Information -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Información del Cliente</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="info-group">
+                <label>Nombre</label>
+                <p>{{ customer.full_name }}</p>
+              </div>
+              <div class="info-group">
+                <label>Email</label>
+                <p>{{ customer.email }}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="info-group">
+                <label>Empresa</label>
+                <p>{{ customer.company }}</p>
+              </div>
+              <div class="info-group">
+                <label>Phone</label>
+                <p>{{ customer.telephone }}</p>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="info-group">
+                <label>Dirección</label>
+                <p>{{ customer.address }}</p>
+              </div>
+              <div class="info-group">
+                <label>Notas</label>
+                <p>{{ customer.notes }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Loans -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Préstamos Solicitados</h3>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-info" *ngIf="!customer.loans?.length">
+            No hay préstamos activos para mostrar.
+          </div>
+          <div class="table-responsive" *ngIf="customer.loans?.length">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Capital</th>
+                  <th>Pago</th>
+                  <th>Fecha Inicio</th>
+                  <th>Pagos</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let loan of customer.loans">
+                  <td>${{ loan.capital.toLocaleString() }}</td>
+                  <td>${{ loan.payment_amount.toLocaleString() }}</td>
+                  <td>{{ loan.start_date }}</td>
+                  <td>{{ loan.terms }}</td>
+                  <td>
+                    <span class="badge" [class]="getStatusClass(loan.status)">
+                      {{ loan.status }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Payments -->
+       <!--
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Recent Payments</h3>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Payment ID</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Loan ID</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let payment of payments">
+                  <td>#{{ payment.id }}</td>
+                  <td>{{ payment.date | date:"medium" }}</td>
+                  <td>${{ payment.amount.toLocaleString() }}</td>
+                  <td>#{{ payment.loanId }}</td>
+                  <td>
+                    <span class="badge" [class]="getStatusClass(payment.status)">
+                      {{ payment.status }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    -->
+    </div>
+
+  </section>
+</div>

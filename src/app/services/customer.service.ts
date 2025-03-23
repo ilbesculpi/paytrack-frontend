@@ -8,6 +8,10 @@ interface FetchCustomersResponse {
     customers: CustomerJson[];
 }
 
+interface FetchCustomerDetailsResponse {
+    customer: CustomerJson;
+}
+
 interface CreateCustomerRequest {
     full_name: string;
     document_id: string;
@@ -38,6 +42,13 @@ export class CustomerService {
         return this.api.post<CustomerJson>('customers', request)
             .pipe(
                 map(json => new Customer(json))
+            );
+    }
+
+    getCustomer(customerId: string): Observable<Customer> {
+        return this.api.get<FetchCustomerDetailsResponse>(`customers/${customerId}`)
+            .pipe(
+                map(json => new Customer(json.customer))
             );
     }
 
