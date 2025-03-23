@@ -1,0 +1,123 @@
+<div class="content-wrapper">
+
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Clientes &middot; <small class="text-muted">Registrar Cliente</small></h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/admin/dashboard">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="/admin/customers">Clientes</a></li>
+            <li class="breadcrumb-item active">Registrar Cliente</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content">
+
+    <div class="container-fluid">
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <form [formGroup]="form" (ngSubmit)="submit()">
+
+            <div class="form-group">
+              <label for="full_name">Nombre</label>
+              <input type="text"
+                class="form-control"
+                id="full_name"
+                formControlName="full_name"
+                [ngClass]="{'is-invalid': isFieldInvalid('full_name')}">
+              <div class="invalid-feedback" *ngIf="hasError('full_name', 'required')">
+                Nombre es requerido
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                [ngClass]="{'is-invalid': isFieldInvalid('email')}">
+              <div class="invalid-feedback" *ngIf="hasError('email', 'required')">
+                Email es requerido
+              </div>
+              <div class="invalid-feedback" *ngIf="hasError('email', 'email')">
+                Ingrese un email válido
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="telephone">Teléfono</label>
+              <input type="tel"
+                class="form-control"
+                id="telephone"
+                formControlName="telephone"
+                [ngClass]="{'is-invalid': isFieldInvalid('telephone')}">
+            </div>
+
+            <div class="form-group">
+              <label for="document_id">Nº Documento</label>
+              <input type="tel"
+                class="form-control"
+                id="document_id"
+                formControlName="document_id"
+                [ngClass]="{'is-invalid': isFieldInvalid('document_id')}">
+            </div>
+
+            <div class="form-group">
+              <label for="company">Empresa</label>
+              <input type="text"
+                class="form-control"
+                id="company"
+                formControlName="company"
+                [ngClass]="{'is-invalid': isFieldInvalid('company')}">
+            </div>
+
+            <div class="form-group">
+              <label for="address">Dirección</label>
+              <textarea
+                class="form-control"
+                id="address"
+                rows="3"
+                formControlName="address"
+                [ngClass]="{'is-invalid': isFieldInvalid('address')}"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Notas</label>
+              <textarea
+                class="form-control"
+                id="notes"
+                rows="3"
+                formControlName="notes"
+                [ngClass]="{'is-invalid': isFieldInvalid('notes')}"></textarea>
+            </div>
+
+            <div class="form-actions text-right">
+              <button type="submit" class="btn btn-primary mr-2" [disabled]="form.invalid">
+                Guardar
+              </button>
+              <a class="btn btn-secondary" routerLink="/admin/customers">
+                Cancelar
+              </a>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

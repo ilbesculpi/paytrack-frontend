@@ -8,6 +8,20 @@ interface FetchCustomersResponse {
     customers: CustomerJson[];
 }
 
+interface FetchCustomerDetailsResponse {
+    customer: CustomerJson;
+}
+
+interface CreateCustomerRequest {
+    full_name: string;
+    document_id: string;
+    telephone: string;
+    email: string;
+    address: string;
+    company: string;
+    notes: string;
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -21,6 +35,20 @@ export class CustomerService {
             .pipe(
                 map(response => response.customers),
                 map(rows => rows.map((row) => new Customer(row)))
+            );
+    }
+
+    createCustomer(request: Partial<CreateCustomerRequest>): Observable<Customer> {
+        return this.api.post<CustomerJson>('customers', request)
+            .pipe(
+                map(json => new Customer(json))
+            );
+    }
+
+    getCustomer(customerId: string): Observable<Customer> {
+        return this.api.get<FetchCustomerDetailsResponse>(`customers/${customerId}`)
+            .pipe(
+                map(json => new Customer(json.customer))
             );
     }
 
