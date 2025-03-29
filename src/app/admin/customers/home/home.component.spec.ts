@@ -5,6 +5,7 @@ import { CustomerService } from '../../../services';
 import { Customer } from '../../../models';
 import { of } from 'rxjs';
 import { SharedModule } from '../../../shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 describe('CustomersHomeComponent', () => {
 
@@ -13,9 +14,7 @@ describe('CustomersHomeComponent', () => {
     let customersServiceSpy: jasmine.SpyObj<CustomerService>;
 
     beforeEach(() => {
-
         customersServiceSpy = jasmine.createSpyObj<CustomerService>('CustomerService', ['getCustomers']);
-
         TestBed.configureTestingModule({
             imports: [SharedModule],
             declarations: [CustomersHomeComponent],
