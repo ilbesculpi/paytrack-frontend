@@ -57,9 +57,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            },
-            "es": {
-              "browserTarget": "frontend:build:es"
             }
           },
           "defaultConfiguration": "production"

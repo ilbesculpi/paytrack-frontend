@@ -71,58 +71,19 @@
       </div>
 
       <!-- Grid View -->
-      <div class="row" *ngIf="displayMode === 'grid' && filteredCustomers.length > 0">
+      <div class="row mt-5" *ngIf="displayMode === 'grid' && filteredCustomers.length > 0">
         <div class="col-12 col-sm-6 col-md-4" *ngFor="let customer of filteredCustomers">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"><a [routerLink]="['/admin/customers', customer.id, 'view']">{{ customer.full_name }}</a></h5>
-              <div class="card-text my-3">
-                <div class="mt-2"><i class="fas fa-envelope mr-2"></i>{{ customer.email }}</div>
-                <div class="mt-2"><i class="fas fa-phone mr-2"></i>{{ customer.telephone }}</div>
-                <div class="mt-2"><i class="fas fa-map-marker-alt mr-2"></i>{{ customer.address }}</div>
-              </div>
-              <div class="card-actions">
-                <button class="btn btn-sm btn-info mr-2">
-                  <i class="fas fa-edit"></i> Edit
-                </button>
-                <button class="btn btn-sm btn-danger">
-                  <i class="fas fa-trash"></i> Delete
-                </button>
-              </div>
-            </div>
-          </div>
+          <customer-tile [customer]="customer" [display]="'grid'"></customer-tile>
         </div>
       </div>
 
       <!-- List View -->
       <div class="table-responsive" *ngIf="displayMode === 'list' && filteredCustomers.length > 0">
-        <table class="table table-hover">
-          <thead class="thead-light">
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Address</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let customer of filteredCustomers">
-              <td><a [routerLink]="['/admin/customers', customer.id, 'view']">{{ customer.full_name }}</a></td>
-              <td>{{ customer.email }}</td>
-              <td>{{ customer.telephone }}</td>
-              <td>{{ customer.address }}</td>
-              <td>
-                <button class="btn btn-sm btn-info mr-2">
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn btn-sm btn-danger">
-                  <i class="fas fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="row" *ngFor="let customer of filteredCustomers">
+          <div class="col-12">
+            <customer-tile [customer]="customer" [display]="'list'"></customer-tile>
+          </div>
+        </div>
       </div>
     </div>
   </section>

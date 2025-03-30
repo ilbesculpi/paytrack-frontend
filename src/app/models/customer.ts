@@ -34,6 +34,7 @@ export interface CustomerJson {
     notes: string;
     created_at?: string;
     updated_at?: string;
+    avatar_url?: string;
 }
 
 export class Customer implements CustomerJson {
@@ -49,6 +50,7 @@ export class Customer implements CustomerJson {
     notes: string = '';
     created_at?: string;
     updated_at?: string;
+    avatar_url?: string;
 
     loans?: LoanJson[];
 
