@@ -4,13 +4,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Clientes &middot; <small class="text-muted">{{ customer.full_name }}</small></h1>
+          <h1 class="m-0">Clientes &middot; <small class="text-muted">{{ customer()?.full_name }}</small></h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/admin/dashboard">Inicio</a></li>
             <li class="breadcrumb-item"><a href="/admin/customers">Clientes</a></li>
-            <li class="breadcrumb-item active">{{ customer.full_name }}</li>
+            <li class="breadcrumb-item active">{{ customer()?.full_name }}</li>
           </ol>
         </div>
       </div>
@@ -19,7 +19,7 @@
 
   <section class="content">
 
-    <div class="container-fluid">
+    <div class="container-fluid" *ngIf="customer() as customer">
 
       <!-- Customer Information -->
       <div class="card">
@@ -63,15 +63,21 @@
       </div>
 
       <!-- Active Loans -->
-      <div class="card">
+      <div class="card" *ngIf="loans() as loans">
         <div class="card-header">
           <h3 class="card-title">Préstamos Solicitados</h3>
+          <div class="btn-group float-right" role="group">
+            <a [routerLink]="['/admin/loans/create', customer.id]" class="btn btn-success">
+              <i class="fas fa-plus"></i>
+              Crear Préstamo
+            </a>
+          </div>
         </div>
         <div class="card-body">
-          <div class="alert alert-info" *ngIf="!customer.loans?.length">
+          <div class="alert alert-info" *ngIf="loans.length == 0">
             No hay préstamos activos para mostrar.
           </div>
-          <div class="table-responsive" *ngIf="customer.loans?.length">
+          <div class="table-responsive" *ngIf="loans.length > 0">
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -83,7 +89,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let loan of customer.loans">
+                <tr *ngFor="let loan of loans">
                   <td>${{ loan.capital.toLocaleString() }}</td>
                   <td>${{ loan.payment_amount.toLocaleString() }}</td>
                   <td>{{ loan.start_date }}</td>
@@ -101,29 +107,27 @@
       </div>
 
       <!-- Recent Payments -->
-       <!--
-      <div class="card">
+      <div class="card" *ngIf="payments() as payments">
         <div class="card-header">
-          <h3 class="card-title">Recent Payments</h3>
+          <h3 class="card-title">Pagos Recientes</h3>
         </div>
-        <div class="card-body p-0">
-          <div class="table-responsive">
+        <div class="card-body">
+          <div class="alert alert-info" *ngIf="payments.length == 0">
+            No hay pagos recientes para mostrar.
+          </div>
+          <div class="table-responsive" *ngIf="payments.length > 0">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Payment ID</th>
-                  <th>Date</th>
-                  <th>Amount</th>
-                  <th>Loan ID</th>
+                  <th>Fecha</th>
+                  <th>Total</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let payment of payments">
-                  <td>#{{ payment.id }}</td>
-                  <td>{{ payment.date | date:"medium" }}</td>
-                  <td>${{ payment.amount.toLocaleString() }}</td>
-                  <td>#{{ payment.loanId }}</td>
+                  <td>{{ payment.payment_date | date:"medium" }}</td>
+                  <td>${{ payment.payment_total.toLocaleString() }}</td>
                   <td>
                     <span class="badge" [class]="getStatusClass(payment.status)">
                       {{ payment.status }}
@@ -135,8 +139,8 @@
           </div>
         </div>
       </div>
-    -->
     </div>
 
   </section>
+
 </div>

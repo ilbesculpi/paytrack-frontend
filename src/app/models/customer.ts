@@ -37,6 +37,18 @@ export interface CustomerJson {
     avatar_url?: string;
 }
 
+export interface PaymentJson {
+    id?: string;
+    payment_date: string;
+    payment_capital: number;
+    payment_interest: number;
+    payment_delay: number;
+    payment_total: number;
+    payment_method: 'cash'|'wire';
+    notes: string;
+    status: 'pending'|'received';
+}
+
 export class Customer implements CustomerJson {
 
     id?: string;
@@ -53,6 +65,7 @@ export class Customer implements CustomerJson {
     avatar_url?: string;
 
     loans?: LoanJson[];
+    payments?: PaymentJson[];
 
     constructor(data: Partial<CustomerJson> = {}) {
         Object.assign(this, data);
