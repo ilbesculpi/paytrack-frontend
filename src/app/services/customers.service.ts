@@ -25,7 +25,7 @@ interface CreateCustomerRequest {
 @Injectable({
     providedIn: 'root',
 })
-export class CustomerService {
+export class CustomersService {
 
     constructor(private api: ApiService) {
     }

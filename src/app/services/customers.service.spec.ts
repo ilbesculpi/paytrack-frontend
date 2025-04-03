@@ -1,20 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import { CustomerService } from './customer.service';
+import { CustomersService } from './customers.service';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApiService } from './api.service';
 
-describe('CustomerService', () => {
+describe('CustomersService', () => {
 
-    let service: CustomerService;
+    let service: CustomersService;
     let httpTestingController: HttpTestingController;
     let apiService: ApiService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [CustomerService, ApiService]
+            providers: [CustomersService, ApiService]
         });
-        service = TestBed.inject(CustomerService);
+        service = TestBed.inject(CustomersService);
         httpTestingController = TestBed.inject(HttpTestingController);
         apiService = TestBed.inject(ApiService);
     });

@@ -1,5 +1,5 @@
 import { Component, computed, OnInit, signal, Signal, WritableSignal } from '@angular/core';
-import { CustomerService } from '../../../services';
+import { CustomersService } from '../../../services';
 import { ActivatedRoute } from '@angular/router';
 import { Customer } from '../../../models';
 
@@ -17,7 +17,7 @@ export class CustomerDetailsComponent implements OnInit {
     payments = computed(() => this.customer()?.payments);
     errorMessage: string | null = null;
 
-    constructor(private route: ActivatedRoute, private customersService: CustomerService) {
+    constructor(private route: ActivatedRoute, private customersService: CustomersService) {
     }
 
     ngOnInit() {
