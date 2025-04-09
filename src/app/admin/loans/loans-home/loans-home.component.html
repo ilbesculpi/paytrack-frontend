@@ -45,7 +45,7 @@
 
       <!-- Empty array results -->
       <div *ngIf="loans.length === 0" class="alert alert-warning">
-        <div class="p-2"><i class="fas fa-exclamation-triangle mr-2"></i> No hay clientes para mostrar.</div>
+        <div class="p-2"><i class="fas fa-exclamation-triangle mr-2"></i> No hay préstamos para mostrar.</div>
       </div>
 
       <!-- Empty search results -->
@@ -69,9 +69,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let loan of loans">
-              <td>{{ loan.customer.full_name }}</td>
+              <td><a [routerLink]="['/admin/customers', loan.customer.id, 'view']">{{ loan.customer.full_name }}</a></td>
               <td>{{ loan.start_date }}</td>
-              <td>${{ loan.capital.toLocaleString() }}</td>
+              <td>${{ loan.current_amount.toLocaleString() }}</td>
               <td>${{ loan.payment_amount.toLocaleString() }}</td>
               <td>{{ loan.payments_received }}/{{ loan.terms }}</td>
               <td>{{ loan.status }}</td>

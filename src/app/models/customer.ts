@@ -1,25 +1,25 @@
 
 interface LoanJson {
-    id: string;
-    user_id: number;
+    id?: string;
+    user_id?: number;
     customer_id: string;
-    initial_capital: number;
-    capital: number;
+    initial_amount: number;
+    current_amount: number;
+    interest_method: string;
     interest_rate: number;
     payment_amount: number;
-    method: string;
-    terms: number;
     start_date: string;
     end_date: string;
-    frequency: string;
+    terms: number;
+    terms_unit: string;
     pay_day: number;
     payments_remaining: number;
     payments_received: number;
     payments_overdue: number;
     status: string;
-    notes: string;
-    created_at: string;
-    updated_at: string;
+    notes?: string;
+    created_at?: string;
+    updated_at?: string;
 }
 
 export interface CustomerJson {

@@ -10,9 +10,14 @@ const routes: Routes = [
         component: LoansHomeComponent
     },
     {
+        path: 'create/:customerId',
+        component: CreateLoanComponent,
+    },
+    {
         path: 'create',
-        component: CreateLoanComponent
-    }
+        component: CreateLoanComponent,
+        pathMatch: 'full',
+    },
 ];
 
 @NgModule({

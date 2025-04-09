@@ -32,6 +32,7 @@
               <select id="customer_id" class="form-control"
                 formControlName="customer_id"
                 [ngClass]="{'is-invalid': isFieldInvalid('customer_id')}">
+                <option value="" disabled selected>- Seleccione -</option>
                 <option [value]="customer.id" *ngFor="let customer of customers()">{{ customer.full_name }}</option>
               </select>
               <div class="invalid-feedback" *ngIf="hasError('customer_id', 'required')">
@@ -43,14 +44,61 @@
               <label for="amount">Monto Solicitado</label>
               <input type="number" id="amount" class="form-control"
                 formControlName="amount"
-                [ngClass]="{'is-invalid': isFieldInvalid('amount')}">
+                [ngClass]="{'is-invalid': isFieldInvalid('amount')}" min="0" max="1000000">
+              <div class="invalid-feedback" *ngIf="hasError('amount', 'min') || hasError('amount', 'max')">
+                El monto solicitado debe estar entre 0 y 1,000,000
+              </div>
             </div>
 
             <div class="form-group">
-              <label for="interest">Tasa de Interés</label>
-              <input type="number" id="interest" class="form-control"
-                formControlName="interest" min="0" max="100"
-                [ngClass]="{'is-invalid': isFieldInvalid('interest')}">
+              <label for="interest_method">Tipo Préstamo</label>
+              <input type="text" id="interest_method" class="form-control" readonly
+                formControlName="interest_method"
+                [ngClass]="{'is-invalid': isFieldInvalid('interest_method')}">
+            </div>
+
+            <div class="form-group">
+              <label for="interest_rate">Tasa de Interés</label>
+              <input type="number" id="interest_rate" class="form-control"
+                formControlName="interest_rate" min="0" max="100"
+                [ngClass]="{'is-invalid': isFieldInvalid('interest_rate')}">
+              <div class="invalid-feedback" *ngIf="hasError('interest_rate', 'min') || hasError('interest_rate', 'max')">
+                La tasa de interés debe estar entre 0 y 100
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="start_date">Fecha de inicio</label>
+              <input type="text" id="start_date" class="form-control"
+                formControlName="start_date"
+                [ngClass]="{'is-invalid': isFieldInvalid('start_date')}">
+            </div>
+
+            <div class="form-group">
+              <label for="end_date">Fecha de fin</label>
+              <input type="text" id="end_date" class="form-control"
+                formControlName="end_date"
+                [ngClass]="{'is-invalid': isFieldInvalid('end_date')}">
+            </div>
+
+            <div class="form-group">
+              <label for="terms">Pagos</label>
+              <input type="number" id="terms" class="form-control"
+                formControlName="terms"
+                [ngClass]="{'is-invalid': isFieldInvalid('terms')}">
+              <div class="invalid-feedback" *ngIf="hasError('terms_unit', 'required')">
+                Seleccione la duración de pagos
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="terms_unit">Frecuencia</label>
+              <input type="text" id="terms_unit" class="form-control" readonly
+                formControlName="terms_unit"
+                [ngClass]="{'is-invalid': isFieldInvalid('terms_unit')}">
+              <div class="invalid-feedback" *ngIf="hasError('terms_unit', 'required')">
+                Seleccione una frecuencia de pago
+              </div>
             </div>
 
             <div class="form-group">
