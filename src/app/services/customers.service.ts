@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Customer, CustomerJson } from '../models';
+import { Customer } from '../models';
 import { ApiService } from './api.service';
+import { CustomerJson } from '../models/types';
 
 interface FetchCustomersResponse {
     customers: CustomerJson[];

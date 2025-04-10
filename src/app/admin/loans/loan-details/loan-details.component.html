@@ -1,0 +1,147 @@
+<div class="content-wrapper">
+
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Préstamos &middot; <small class="text-muted">{{ customer()?.full_name }}</small></h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/admin/dashboard">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="/admin/loans">Préstamos</a></li>
+            <li class="breadcrumb-item active">{{ customer()?.full_name }}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content">
+
+    <div class="container-fluid" *ngIf="loan() as loan">
+
+      <div class="row">
+
+        <div class="col-md-4" *ngIf="customer() as customer">
+
+          <!-- Customer Info -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Cliente</h3>
+            </div>
+            <div class="card-body">
+              <dl>
+                <dt>Nombre</dt>
+                <dd>{{ customer.full_name }}</dd>
+                <dt>Teléfono</dt>
+                <dd>{{ customer.telephone }}</dd>
+                <dt>Email</dt>
+                <dd>{{ customer.email }}</dd>
+                <dt>Notes</dt>
+                <dd>{{ customer.notes }}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+
+          <!-- Loan Info -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Datos del Préstamo</h3>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="info-box">
+                    <div class="info-box-content">
+                      <span class="info-box-text">Capital</span>
+                      <span class="info-box-number">{{ loan.current_amount | currency }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="info-box">
+                    <div class="info-box-content">
+                      <span class="info-box-text">Interés</span>
+                      <span class="info-box-number">{{ loan.interest_rate }}%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="info-box">
+                    <div class="info-box-content">
+                      <span class="info-box-text">Pagos</span>
+                      <span class="info-box-number">{{ loan.payments_received }} / {{ loan.terms }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="info-box">
+                    <div class="info-box-content">
+                      <span class="info-box-text">Status</span>
+                      <span class="info-box-number">
+                        <span [class]="'badge ' + getStatusBadgeClass(loan.status)">
+                          {{ loan.status }}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-4">
+                <div class="col-12">
+                  <div class="alert alert-info">
+                    <h5><i class="icon fas fa-info"></i> Próximo Pago</h5>
+                    <p class="mb-0">
+                      {{ loan.payment_amount | currency }} el  {{ loan.start_date | date: 'dd/MM/yyyy' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment History -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Payment History</h3>
+            </div>
+            <div class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th>Payment ID</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let payment of loan.payments">
+                    <td>{{ payment.id }}</td>
+                    <td>{{ payment.payment_date | date }}</td>
+                    <td>{{ payment.payment_total | currency }}</td>
+                    <td>
+                      <span [class]="'badge ' + getStatusBadgeClass(payment.status)">
+                        {{ payment.status }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { map, Observable } from 'rxjs';
-import { Loan, LoanJson } from '../models';
+import { Loan } from '../models';
+import { LoanJson } from '../models/types';
 
 interface FetchLoansResponse {
     loans: LoanJson[];
+}
+
+interface FetchLoanResponse {
+    loan: LoanJson;
 }
 
 export interface CreateLoanRequest {
@@ -44,6 +49,13 @@ export class LoansService {
         return this.api.post<LoanJson>(`customers/${request.customer_id}/loans`, request)
             .pipe(
                 map(json => new Loan(json))
+            );
+    }
+
+    getLoan(loanId: string): Observable<Loan> {
+        return this.api.get<FetchLoanResponse>(`loans/${loanId}`)
+            .pipe(
+                map(json => new Loan(json.loan))
             );
     }
 

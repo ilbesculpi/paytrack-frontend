@@ -69,7 +69,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let loan of loans">
-              <td><a [routerLink]="['/admin/customers', loan.customer.id, 'view']">{{ loan.customer.full_name }}</a></td>
+              <td><a [routerLink]="['/admin/customers', loan.customer?.id, 'view']">{{ loan.customer?.full_name }}</a></td>
               <td>{{ loan.start_date }}</td>
               <td>${{ loan.current_amount.toLocaleString() }}</td>
               <td>${{ loan.payment_amount.toLocaleString() }}</td>

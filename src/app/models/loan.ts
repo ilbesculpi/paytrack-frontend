@@ -1,50 +1,5 @@
-interface CustomerJson {
-    id?: string;
-    user_id?: number;
-    full_name: string;
-    document_id: string;
-    telephone: string;
-    email: string;
-    company: string;
-    address: string;
-    notes: string;
-    created_at?: string;
-    updated_at?: string;
-}
+import { LoanJson, PaymentJson, CustomerJson, AssociateJson } from './types';
 
-interface AssociateJson {
-    id?: string;
-    full_name: string;
-    email: string;
-    telephone: string;
-    notes: string;
-}
-
-export interface LoanJson {
-    id?: string;
-    user_id?: number;
-    customer_id: string;
-    initial_amount: number;
-    current_amount: number;
-    interest_method: string;
-    interest_rate: number;
-    payment_amount: number;
-    start_date: string;
-    end_date: string;
-    terms: number;
-    terms_unit: string;
-    pay_day: number;
-    payments_remaining: number;
-    payments_received: number;
-    payments_overdue: number;
-    status: string;
-    notes?: string;
-    created_at?: string;
-    updated_at?: string;
-
-    customer: CustomerJson;
-    associates: AssociateJson[];
-}
 
 export class Loan implements LoanJson {
 
@@ -69,8 +24,9 @@ export class Loan implements LoanJson {
     created_at?: string;
     updated_at?: string;
 
-    customer!: CustomerJson;
+    customer?: CustomerJson;
     associates: AssociateJson[] = [];
+    payments: PaymentJson[] = [];
 
     constructor(data: Partial<LoanJson> = {}) {
         Object.assign(this, data);
