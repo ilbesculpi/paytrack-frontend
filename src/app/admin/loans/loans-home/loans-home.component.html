@@ -1,0 +1,87 @@
+<div class="content-wrapper">
+
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Préstamos</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Inicio</a></li>
+            <li class="breadcrumb-item active">Préstamos</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content">
+
+    <div class="container-fluid mb-3">
+      <div class="text-right">
+        <a class="btn btn-success mr-2" routerLink="/admin/loans/create">
+          <i class="fas fa-plus"></i> Nuevo Préstamo
+        </a>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="container-fluid mb-3">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
+        <input type="text"
+          class="form-control"
+          placeholder="Buscar por nombre..."
+          [(ngModel)]="searchTerm">
+      </div>
+    </div>
+
+    <div class="container-fluid">
+
+      <!-- Empty array results -->
+      <div *ngIf="loans.length === 0" class="alert alert-warning">
+        <div class="p-2"><i class="fas fa-exclamation-triangle mr-2"></i> No hay préstamos para mostrar.</div>
+      </div>
+
+      <!-- Empty search results -->
+      <div *ngIf="loans.length > 0 && filteredLoans.length === 0" class="no-results">
+        <i class="fas fa-search"></i>
+        <p>No hay resultados para la búsqueda <strong>"{{searchTerm}}"</strong></p>
+      </div>
+
+      <!-- List View -->
+      <div class="table-responsive" *ngIf="filteredLoans.length > 0">
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>Cliente</th>
+              <th>Fecha Ini</th>
+              <th>Capital</th>
+              <th>Monto</th>
+              <th>Pagos</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let loan of loans">
+              <td><a [routerLink]="['/admin/customers', loan.customer?.id, 'view']">{{ loan.customer?.full_name }}</a></td>
+              <td>{{ loan.start_date }}</td>
+              <td>${{ loan.current_amount.toLocaleString() }}</td>
+              <td>${{ loan.payment_amount.toLocaleString() }}</td>
+              <td>{{ loan.payments_received }}/{{ loan.terms }}</td>
+              <td>{{ loan.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+
+
+</div>

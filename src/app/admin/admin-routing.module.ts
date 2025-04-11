@@ -24,6 +24,12 @@ const routes: Routes = [
         title: 'Clientes'
     },
     {
+        path: 'loans',
+        loadChildren: () => import('./loans/loans.module').then(mod => mod.LoansModule),
+        canActivate: [authGuard],
+        title: 'Préstamos'
+    },
+    {
         path: '**',
         component: NotFoundComponent
     }

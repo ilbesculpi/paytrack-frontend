@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateCustomerComponent } from './create-customer.component';
 import { SharedModule } from '../../../shared/shared.module';
-import { CustomerService } from '../../../services';
+import { CustomersService } from '../../../services';
 import { of } from 'rxjs';
 import { Customer } from '../../../models';
 
@@ -11,15 +11,15 @@ describe('CreateCustomerComponent', () => {
     let component: CreateCustomerComponent;
     let fixture: ComponentFixture<CreateCustomerComponent>;
 
-    let customersServiceSpy: jasmine.SpyObj<CustomerService>;
+    let customersServiceSpy: jasmine.SpyObj<CustomersService>;
 
     beforeEach(() => {
-        customersServiceSpy = jasmine.createSpyObj<CustomerService>('CustomerService', ['createCustomer']);
+        customersServiceSpy = jasmine.createSpyObj<CustomersService>('CustomerService', ['createCustomer']);
         TestBed.configureTestingModule({
             declarations: [CreateCustomerComponent],
             imports: [SharedModule],
             providers: [
-                { provide: CustomerService, useValue: customersServiceSpy },
+                { provide: CustomersService, useValue: customersServiceSpy },
             ]
         }).compileComponents();
     });

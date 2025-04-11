@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '../../../models';
-import { CustomerService } from '../../../services';
+import { CustomersService } from '../../../services';
 
 @Component({
     selector: 'customers-home',
@@ -14,7 +14,7 @@ export class CustomersHomeComponent implements OnInit {
     displayMode: 'grid' | 'list' = 'grid';
     searchTerm: string = '';
 
-    constructor(private customersService: CustomerService) {
+    constructor(private customersService: CustomersService) {
     }
 
     ngOnInit() {

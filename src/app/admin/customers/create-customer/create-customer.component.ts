@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { CustomerService } from '../../../services';
+import { CustomersService } from '../../../services';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,7 +24,7 @@ export class CreateCustomerComponent implements OnInit {
         notes: [''],
     });
 
-    constructor(private fb: NonNullableFormBuilder, private customersService: CustomerService, private router: Router) {
+    constructor(private fb: NonNullableFormBuilder, private customersService: CustomersService, private router: Router) {
     }
 
     ngOnInit() {

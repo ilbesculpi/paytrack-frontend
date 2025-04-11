@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomerDetailsComponent } from './customer-details.component';
-import { CustomerService } from '../../../services';
+import { CustomersService } from '../../../services';
 import { TestUtils } from '../../../../../testing';
 import { ActivatedRoute } from '@angular/router';
 import { TestFactory } from '../../../../../testing/factories/test-factory';
@@ -11,7 +11,7 @@ describe('CustomerDetailsComponent', () => {
 
     let component: CustomerDetailsComponent;
     let fixture: ComponentFixture<CustomerDetailsComponent>;
-    let customerServiceSpy: jasmine.SpyObj<CustomerService>;
+    let customerServiceSpy: jasmine.SpyObj<CustomersService>;
     let customer = TestFactory.customer.createCustomer();
     let route = TestUtils.getActiveRouteStub({
         params: {
@@ -24,7 +24,7 @@ describe('CustomerDetailsComponent', () => {
         TestBed.configureTestingModule({
             declarations: [CustomerDetailsComponent],
             providers: [
-                { provide: CustomerService, useValue: customerServiceSpy },
+                { provide: CustomersService, useValue: customerServiceSpy },
                 { provide: ActivatedRoute, useValue: route },
             ],
         }).compileComponents();
