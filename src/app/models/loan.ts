@@ -24,7 +24,7 @@ export class Loan implements LoanJson {
     created_at?: string;
     updated_at?: string;
 
-    customer?: CustomerJson;
+    customer!: CustomerJson;
     associates: AssociateJson[] = [];
     payments: PaymentJson[] = [];
 

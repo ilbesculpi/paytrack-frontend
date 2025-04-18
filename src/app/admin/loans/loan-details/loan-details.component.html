@@ -10,16 +10,25 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/admin/dashboard">Inicio</a></li>
             <li class="breadcrumb-item"><a href="/admin/loans">Préstamos</a></li>
-            <li class="breadcrumb-item active">{{ customer()?.full_name }}</li>
+            <li class="breadcrumb-item" *ngIf="customer() as customer"><a [routerLink]="['/admin/customers', customer.id, 'view']">{{ customer.full_name }}</a></li>
+            <li class="breadcrumb-item active" *ngIf="customer() as customer">{{ loanId }}</li>
           </ol>
         </div>
       </div>
     </div>
   </div>
 
-  <section class="content">
+  <section class="content" *ngIf="loan() as loan">
 
-    <div class="container-fluid" *ngIf="loan() as loan">
+    <div class="container-fluid mb-3">
+      <div class="text-right">
+        <a class="btn btn-success mr-2" [routerLink]="['/admin/payments', loan.id, 'new']">
+          <i class="fas fa-plus"></i> Registrar Pago
+        </a>
+      </div>
+    </div>
+
+    <div class="container-fluid">
 
       <div class="row">
 
@@ -35,11 +44,13 @@
                 <dt>Nombre</dt>
                 <dd>{{ customer.full_name }}</dd>
                 <dt>Teléfono</dt>
-                <dd>{{ customer.telephone }}</dd>
+                <dd>{{ customer.telephone || '&nbsp;' }}</dd>
                 <dt>Email</dt>
-                <dd>{{ customer.email }}</dd>
-                <dt>Notes</dt>
-                <dd>{{ customer.notes }}</dd>
+                <dd>{{ customer.email || '&nbsp;' }}</dd>
+                <dt>Dirección</dt>
+                <dd>{{ customer.address || '&nbsp;' }}</dd>
+                <dt>Notas</dt>
+                <dd>{{ customer.notes || '&nbsp;' }}</dd>
               </dl>
             </div>
           </div>

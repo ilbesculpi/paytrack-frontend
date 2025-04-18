@@ -15,6 +15,7 @@ export class LoanDetailsComponent implements OnInit {
     errorMessage: string | null = null;
     loan: WritableSignal<Loan|undefined> = signal(undefined);
     customer: Signal<CustomerJson|undefined> = computed(() => this.loan()?.customer);
+    loanId: string = '';
 
     constructor(private route: ActivatedRoute, private loansService: LoansService) {
     }
@@ -22,19 +23,21 @@ export class LoanDetailsComponent implements OnInit {
     ngOnInit() {
         this.route.paramMap
             .subscribe((params) => {
-                console.log('paramMap', params);
                 const loanId = params.get('loanId') as string;
+                this.loanId = loanId;
                 this.loadLoan(loanId);
             });
     }
 
     loadLoan(loanId: string) {
+        console.log('load Loan', loanId);
         this.isLoading = true;
         this.errorMessage = null;
         this.loansService.getLoan(loanId)
             .subscribe({
                 next: (loan) => {
                     console.log('loan', loan);
+                    console.log('customer', loan.customer);
                     this.isLoading = false;
                     this.errorMessage = null;
                     this.loan.update(() => loan);
