@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { map, Observable } from 'rxjs';
-import { Loan } from '../models';
-import { LoanJson } from '../models/types';
+import { Loan, Payment } from '../models';
+import { LoanJson, PaymentJson } from '../models/types';
 
 interface FetchLoansResponse {
     loans: LoanJson[];
@@ -10,6 +10,10 @@ interface FetchLoansResponse {
 
 interface FetchLoanResponse {
     loan: LoanJson;
+}
+
+interface LoanPaymentsResponse {
+    payments: PaymentJson[];
 }
 
 export interface CreateLoanRequest {
@@ -56,6 +60,14 @@ export class LoansService {
         return this.api.get<FetchLoanResponse>(`loans/${loanId}`)
             .pipe(
                 map(json => new Loan(json.loan))
+            );
+    }
+
+    getLoanPayments(loanId: string): Observable<Payment[]> {
+        return this.api.get<LoanPaymentsResponse>(`loans/${loanId}/payments`)
+            .pipe(
+                map(response => response.payments),
+                map(rows => rows.map((row) => new Payment(row)))
             );
     }
 

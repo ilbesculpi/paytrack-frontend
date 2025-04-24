@@ -23,6 +23,63 @@
 
     <div class="container-fluid">
 
+      <div class="card" *ngIf="loan() as loan">
+        <div class="card-header">
+          <h3 class="card-title">Datos del Préstamo</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="info-box">
+                <div class="info-box-content">
+                  <span class="info-box-text">Capital</span>
+                  <span class="info-box-number">{{ loan.current_amount | currency }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="info-box">
+                <div class="info-box-content">
+                  <span class="info-box-text">Interés</span>
+                  <span class="info-box-number">{{ loan.interest_rate }}%</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="info-box">
+                <div class="info-box-content">
+                  <span class="info-box-text">Pagos</span>
+                  <span class="info-box-number">{{ loan.payments_received }} / {{ loan.terms }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="info-box">
+                <div class="info-box-content">
+                  <span class="info-box-text">Status</span>
+                  <span class="info-box-number">
+                    <span [class]="'badge ' + getStatusBadgeClass(loan.status)">
+                      {{ loan.status }}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="alert alert-info">
+                <h5><i class="icon fas fa-info"></i> Próximo Pago</h5>
+                <p class="mb-0">
+                  {{ loan.payment_amount | currency }} el  {{ loan.start_date | date: 'dd/MM/yyyy' }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="card">
 
         <div class="card-body">
@@ -105,6 +162,40 @@
                 [ngClass]="{'is-invalid': isFieldInvalid('notes')}"></textarea>
             </div>
 
+            <!-- Attachments -->
+            <div class="form-group">
+              <label>Attachments (Optional)</label>
+
+              <!-- Container for dynamic attachment fields -->
+              <div formArrayName="attachments">
+                <!-- Loop through each attachment control in the FormArray -->
+                <div *ngFor="let attachmentControl of attachmentsFormArray.controls; let i=index" class="input-group mb-2">
+                    <!--
+                      We don't bind this FormControl to the input directly (formControlName directive)
+                      because the input's value is managed by the browser for type="file".
+                      The FormControl in the array mainly serves to track the *number* of attachment slots.
+                      The actual file data is managed in the component's `selectedFiles` array.
+                    -->
+                  <div class="custom-file">
+                    <!-- Use the index 'i' to link the input to the correct file data slot -->
+                    <input type="file" class="custom-file-input" [id]="'attachment_' + i" (change)="onFileSelected($event, i)">
+                    <!-- Display the selected file name from the component's `selectedFiles` array -->
+                    <label class="custom-file-label" [for]="'attachment_' + i">{{ selectedFiles[i]?.name || 'Choose file' }}</label>
+                  </div>
+                  <div class="input-group-append">
+                    <!-- Button to remove this specific attachment field -->
+                    <button type="button" class="btn btn-outline-danger" (click)="removeAttachment(i)" title="Remove Attachment">
+                      <i class="fas fa-times"></i> <!-- Using Font Awesome for icon -->
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-outline-secondary btn-sm mt-2" (click)="addAttachment()">
+                <i class="fas fa-plus"></i> Add Attachment
+              </button>
+
+            </div>
 
             <div class="form-actions text-right">
               <button type="submit" class="btn btn-primary mr-2" [disabled]="form.invalid">

@@ -3,8 +3,8 @@ import { LoanJson, PaymentJson, CustomerJson, AssociateJson } from './types';
 
 export class Loan implements LoanJson {
 
-    id?: string;
-    user_id?: number;
+    id: string = '';
+    user_id: number = 0;
     customer_id: string = '';
     initial_amount: number = 0;
     current_amount: number = 0;
