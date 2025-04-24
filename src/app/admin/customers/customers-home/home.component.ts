@@ -23,7 +23,8 @@ export class CustomersHomeComponent implements OnInit {
 
     get filteredCustomers(): Customer[] {
         return this.customers.filter(customer => {
-            return customer.full_name.toLowerCase().includes(this.searchTerm.toLowerCase());
+            return customer.full_name.toLowerCase()
+                .includes(this.searchTerm.toLowerCase());
         });
     }
 

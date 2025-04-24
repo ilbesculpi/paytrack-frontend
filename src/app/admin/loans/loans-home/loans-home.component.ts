@@ -23,7 +23,8 @@ export class LoansHomeComponent {
 
     get filteredLoans(): Loan[] {
         return this.loans.filter(loan => {
-            return loan.customer?.full_name.toLowerCase().includes(this.searchTerm.toLowerCase());
+            return loan.customer.full_name.toLowerCase()
+                .includes(this.searchTerm.toLowerCase());
         });
     }
 
