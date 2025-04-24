@@ -2,8 +2,8 @@ import { CustomerJson, LoanJson, PaymentJson } from "./types";
 
 export class Customer implements CustomerJson {
 
-    id?: string;
-    user_id?: number;
+    id: string = '';
+    user_id: number = 0;
     full_name: string = '';
     document_id: string = '';
     telephone: string = '';

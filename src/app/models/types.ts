@@ -1,7 +1,22 @@
 
+export interface CustomerJson {
+    id: string;
+    user_id: number;
+    full_name: string;
+    document_id: string;
+    telephone: string;
+    email: string;
+    company: string;
+    address: string;
+    notes: string;
+    created_at?: string;
+    updated_at?: string;
+    avatar_url?: string;
+}
+
 export interface LoanJson {
-    id?: string;
-    user_id?: number;
+    id: string;
+    user_id: number;
     customer_id: string;
     initial_amount: number;
     current_amount: number;
@@ -20,29 +35,10 @@ export interface LoanJson {
     notes?: string;
     created_at?: string;
     updated_at?: string;
-
-    // customer: CustomerJson;
-    // associates: AssociateJson[];
-}
-
-
-export interface CustomerJson {
-    id?: string;
-    user_id?: number;
-    full_name: string;
-    document_id: string;
-    telephone: string;
-    email: string;
-    company: string;
-    address: string;
-    notes: string;
-    created_at?: string;
-    updated_at?: string;
-    avatar_url?: string;
 }
 
 export interface PaymentJson {
-    id?: string;
+    id: string;
     customer_id: string;
     loan_id: string;
     payment_date: string;
@@ -53,12 +49,12 @@ export interface PaymentJson {
     payment_method: string;
     notes: string;
     status: string;
-    create_at: string;
+    created_at: string;
     updated_at: string;
 }
 
 export interface AssociateJson {
-    id?: string;
+    id: string;
     full_name: string;
     email: string;
     telephone: string;

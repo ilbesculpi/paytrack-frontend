@@ -1,0 +1,219 @@
+<div class="content-wrapper">
+
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Clientes &middot; <small class="text-muted">Registrar Pago</small></h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Inicio</a></li>
+            <li class="breadcrumb-item"><a routerLink="/admin/loans">Préstamos</a></li>
+            <li class="breadcrumb-item" *ngIf="customer() as customer"><a [routerLink]="['/admin/customers', customer.id, 'view']">{{ customer.full_name }}</a></li>
+            <li class="breadcrumb-item" *ngIf="loan() as loan"><a [routerLink]="['/admin/loans', loan.id, 'view']">{{ loan.id }}</a></li>
+            <li class="breadcrumb-item active">Registrar Pago</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content">
+
+    <div class="container-fluid">
+
+      <div class="card" *ngIf="loan() as loan">
+        <div class="card-header">
+          <h3 class="card-title">Datos del Préstamo</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="info-box">
+                <div class="info-box-content">
+                  <span class="info-box-text">Capital</span>
+                  <span class="info-box-number">{{ loan.current_amount | currency }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="info-box">
+                <div class="info-box-content">
+                  <span class="info-box-text">Interés</span>
+                  <span class="info-box-number">{{ loan.interest_rate }}%</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="info-box">
+                <div class="info-box-content">
+                  <span class="info-box-text">Pagos</span>
+                  <span class="info-box-number">{{ loan.payments_received }} / {{ loan.terms }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="info-box">
+                <div class="info-box-content">
+                  <span class="info-box-text">Status</span>
+                  <span class="info-box-number">
+                    <span [class]="'badge ' + getStatusBadgeClass(loan.status)">
+                      {{ loan.status }}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="alert alert-info">
+                <h5><i class="icon fas fa-info"></i> Próximo Pago</h5>
+                <p class="mb-0">
+                  {{ loan.payment_amount | currency }} el  {{ loan.start_date | date: 'dd/MM/yyyy' }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <form [formGroup]="form" (ngSubmit)="submit()">
+
+            <div class="form-group">
+              <label for="payment_date">Fecha de Pago</label>
+              <div class="input-group date" id="payment_date" data-target-input="nearest">
+                <input type="text" class="form-control datetimepicker-input" data-target="#payment_date"
+                  [ngClass]="{'is-invalid': isFieldInvalid('payment_date')}">
+                <div class="input-group-append" data-target="#payment_date" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+              </div>
+              <div class="invalid-feedback" *ngIf="hasError('payment_date', 'required')">
+                Ingrese la fecha del pago
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="payment_method">Método de Pago</label>
+              <select id="payment_method" class="form-control"
+                formControlName="payment_method"
+                [ngClass]="{'is-invalid': isFieldInvalid('payment_method')}">
+                <option value="" disabled selected>- Seleccione -</option>
+                <option value="cash">Efectivo</option>
+                <option value="wire">Transferencia</option>
+                <option value="other">Otro</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="hasError('payment_method', 'required')">
+                Seleccione un método de la lista
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col">
+                <label for="payment_capital">Capital</label>
+                <input type="number" id="payment_capital" class="form-control"
+                  formControlName="payment_capital"
+                  [ngClass]="{'is-invalid': isFieldInvalid('payment_capital')}">
+                <div class="invalid-feedback" *ngIf="hasError('payment_capital', 'required')">
+                  Ingrese el monto del pago
+                </div>
+              </div>
+              <div class="col">
+                <label for="payment_interest">Intereses</label>
+                <input type="number" id="payment_interest" class="form-control"
+                  formControlName="payment_interest"
+                  [ngClass]="{'is-invalid': isFieldInvalid('payment_interest')}">
+                <div class="invalid-feedback" *ngIf="hasError('payment_interest', 'required')">
+                  Ingrese el monto del pago
+                </div>
+              </div>
+              <div class="col">
+                <label for="payment_delay">Demora</label>
+                <input type="number" id="payment_delay" class="form-control"
+                  formControlName="payment_delay"
+                  [ngClass]="{'is-invalid': isFieldInvalid('payment_delay')}">
+                <div class="invalid-feedback" *ngIf="hasError('payment_delay', 'required')">
+                  Ingrese el monto del pago
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="payment_amount">Monto total del Pago</label>
+              <input type="number" id="payment_amount" class="form-control" readonly
+                formControlName="payment_amount"
+                [ngClass]="{'is-invalid': isFieldInvalid('payment_amount')}">
+              <div class="invalid-feedback" *ngIf="hasError('payment_amount', 'required')">
+                Ingrese el monto del pago
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Notas</label>
+              <textarea id="notes" class="form-control" rows="3"
+                formControlName="notes"
+                [ngClass]="{'is-invalid': isFieldInvalid('notes')}"></textarea>
+            </div>
+
+            <!-- Attachments -->
+            <div class="form-group">
+              <label>Attachments (Optional)</label>
+
+              <!-- Container for dynamic attachment fields -->
+              <div formArrayName="attachments">
+                <!-- Loop through each attachment control in the FormArray -->
+                <div *ngFor="let attachmentControl of attachmentsFormArray.controls; let i=index" class="input-group mb-2">
+                    <!--
+                      We don't bind this FormControl to the input directly (formControlName directive)
+                      because the input's value is managed by the browser for type="file".
+                      The FormControl in the array mainly serves to track the *number* of attachment slots.
+                      The actual file data is managed in the component's `selectedFiles` array.
+                    -->
+                  <div class="custom-file">
+                    <!-- Use the index 'i' to link the input to the correct file data slot -->
+                    <input type="file" class="custom-file-input" [id]="'attachment_' + i" (change)="onFileSelected($event, i)">
+                    <!-- Display the selected file name from the component's `selectedFiles` array -->
+                    <label class="custom-file-label" [for]="'attachment_' + i">{{ selectedFiles[i]?.name || 'Choose file' }}</label>
+                  </div>
+                  <div class="input-group-append">
+                    <!-- Button to remove this specific attachment field -->
+                    <button type="button" class="btn btn-outline-danger" (click)="removeAttachment(i)" title="Remove Attachment">
+                      <i class="fas fa-times"></i> <!-- Using Font Awesome for icon -->
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-outline-secondary btn-sm mt-2" (click)="addAttachment()">
+                <i class="fas fa-plus"></i> Add Attachment
+              </button>
+
+            </div>
+
+            <div class="form-actions text-right">
+              <button type="submit" class="btn btn-primary mr-2" [disabled]="form.invalid">
+                Guardar
+              </button>
+              <a class="btn btn-secondary" routerLink="/admin/loans">
+                Cancelar
+              </a>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

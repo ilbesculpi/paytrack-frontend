@@ -30,6 +30,12 @@ const routes: Routes = [
         title: 'Préstamos'
     },
     {
+        path: 'payments',
+        loadChildren: () => import('./payments/payments.module').then(mod => mod.PaymentsModule),
+        canActivate: [authGuard],
+        title: 'Pagos'
+    },
+    {
         path: '**',
         component: NotFoundComponent
     }
