@@ -4,8 +4,8 @@ import { CustomersService } from '../../../services';
 
 @Component({
     selector: 'customers-home',
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss',
+    templateUrl: './customers-home.component.html',
+    styleUrl: './customers-home.component.scss',
 })
 export class CustomersHomeComponent implements OnInit {
 

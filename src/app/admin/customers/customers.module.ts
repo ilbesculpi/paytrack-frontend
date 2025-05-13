@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CustomersRoutingModule } from './customers-routing.module';
 import { SharedModule } from '../../shared/shared.module';
-import { CustomersHomeComponent } from './customers-home/home.component';
+import { CustomersHomeComponent } from './customers-home/customers-home.component';
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 import { CustomerTileComponent } from './customer-tile/customer-tile.component';

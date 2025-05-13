@@ -72,7 +72,7 @@
 
       <!-- Grid View -->
       <div class="row mt-5" *ngIf="displayMode === 'grid' && filteredCustomers.length > 0">
-        <div class="col-12 col-sm-6 col-md-4" *ngFor="let customer of filteredCustomers">
+        <div class="col-12 col-sm-6 col-md-4 mb-4" *ngFor="let customer of filteredCustomers">
           <customer-tile [customer]="customer" [display]="'grid'"></customer-tile>
         </div>
       </div>

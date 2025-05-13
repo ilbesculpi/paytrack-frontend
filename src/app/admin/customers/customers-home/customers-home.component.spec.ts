@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomersHomeComponent } from './home.component';
+import { CustomersHomeComponent } from './customers-home.component';
 import { CustomersService } from '../../../services';
 import { Customer } from '../../../models';
 import { of } from 'rxjs';
