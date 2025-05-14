@@ -37,4 +37,19 @@ export class ApiService {
         });
     }
 
+    put<T>(path: string, body: object = {}): Observable<T> {
+        const url = `${this.apiUrl}/${path}`;
+        return this.http.put<T>(url, body, {
+            headers: this.getHeaders()
+        });
+    }
+
+    delete<T>(path: string, params: HttpParams = new HttpParams()): Observable<T> {
+        const url = `${this.apiUrl}/${path}`;
+        return this.http.delete<T>(url, {
+            headers: this.getHeaders(),
+            params
+        });
+    }
+
 }

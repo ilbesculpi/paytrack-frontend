@@ -2,7 +2,7 @@ import { Component, computed, OnInit, Signal, signal, WritableSignal } from '@an
 import { ActivatedRoute, Route } from '@angular/router';
 import { LoansService } from '../../../services';
 import { Loan, Payment } from '../../../models';
-import { CustomerJson } from '../../../models/types';
+import { CustomerJson, PaymentJson } from '../../../models/types';
 
 @Component({
     selector: 'app-loan-details',
@@ -16,7 +16,11 @@ export class LoanDetailsComponent implements OnInit {
     loanId: string = '';
     loan: WritableSignal<Loan|undefined> = signal(undefined);
     customer: Signal<CustomerJson|undefined> = computed(() => this.loan()?.customer);
+    nextPayment: Signal<PaymentJson|undefined> = computed(() => this.loan()?.nextPayment);
     payments: WritableSignal<Payment[]> = signal([]);
+    paidPayments: Signal<Payment[]> = computed(() => this.payments().filter(p => p.status === 'paid'));
+    overduePayments: Signal<Payment[]> = computed(() => this.payments().filter(p => p.status === 'overdue'));
+
 
     constructor(private route: ActivatedRoute, private loansService: LoansService) {
     }

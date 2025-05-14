@@ -4,10 +4,10 @@ import { NewPaymentComponent } from './new-payment/new-payment.component';
 
 const routes: Routes = [
     {
-        path: ':loanId',
+        path: ':paymentId',
         children: [
             {
-                path: 'new',
+                path: 'pay',
                 component: NewPaymentComponent,
                 title: 'Registrar Pago',
             }

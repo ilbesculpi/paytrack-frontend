@@ -62,6 +62,7 @@
               <th>ID</th>
               <th>Cliente</th>
               <th>Fecha Ini</th>
+              <th>Fecha Pago</th>
               <th>Capital</th>
               <th>Monto</th>
               <th>Pagos</th>
@@ -76,7 +77,8 @@
               <td>
                 <a [routerLink]="['/admin/customers', loan.customer.id, 'view']">{{ loan.customer.full_name }}</a>
               </td>
-              <td>{{ loan.start_date }}</td>
+              <td>{{ loan.start_date |  date: 'dd/MM/yyyy' }}</td>
+              <td>{{ loan.nextPayment?.due_date | date: 'dd/MM/yyyy' }}</td>
               <td>${{ loan.current_amount.toLocaleString() }}</td>
               <td>${{ loan.payment_amount.toLocaleString() }}</td>
               <td>{{ loan.payments_received }}/{{ loan.terms }}</td>

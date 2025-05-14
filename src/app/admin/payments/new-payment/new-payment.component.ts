@@ -2,8 +2,8 @@ import { AfterContentInit, AfterViewInit, Component, computed,
     OnDestroy, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { combineLatest, map, startWith, Subject, takeUntil } from 'rxjs';
-import { Customer, Loan } from '../../../models';
-import { CustomerJson } from '../../../models/types';
+import { Customer, Loan, Payment } from '../../../models';
+import { CustomerJson, LoanJson } from '../../../models/types';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreatePaymentRequest, LoansService, PaymentsService } from '../../../services';
 
@@ -23,8 +23,9 @@ interface AttachmentFile {
 })
 export class NewPaymentComponent implements OnInit, AfterContentInit, OnDestroy {
 
-    loan: WritableSignal<Loan|null> = signal(null);
-    customer: Signal<CustomerJson|undefined> = computed(() => this.loan()?.customer);
+    payment: WritableSignal<Payment|null> = signal(null);
+    loan: Signal<Loan|null> = computed(() => this.payment()?.loan || null);
+    customer: Signal<Customer|undefined> = computed(() => this.payment()?.customer);
 
     // Form properties
     isSubmitting = false;
@@ -52,20 +53,19 @@ export class NewPaymentComponent implements OnInit, AfterContentInit, OnDestroy 
         private fb: NonNullableFormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private loansService: LoansService,
         private paymentsService: PaymentsService) {
     }
 
     ngOnInit() {
         this.setupTotalCalculation();
         this.route.paramMap.subscribe(params => {
-            const loanId = params.get('loanId');
-            console.log('loadId', loanId);
-            if( loanId ) {
-                this.loansService.getLoan(loanId)
+            const paymentId = params.get('paymentId');
+            console.log('paymentId', paymentId);
+            if( paymentId ) {
+                this.paymentsService.getPayment(paymentId)
                     .subscribe({
-                        next: (loan) => {
-                            this.loan.update(() => loan);
+                        next: (payment) => {
+                            this.payment.update(() => payment);
                         }
                     });
             }

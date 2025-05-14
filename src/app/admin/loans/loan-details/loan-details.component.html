@@ -20,14 +20,6 @@
 
   <section class="content" *ngIf="loan() as loan">
 
-    <div class="container-fluid mb-3">
-      <div class="text-right">
-        <a class="btn btn-success mr-2" [routerLink]="['/admin/payments', loan.id, 'new']">
-          <i class="fas fa-plus"></i> Registrar Pago
-        </a>
-      </div>
-    </div>
-
     <div class="container-fluid">
 
       <div class="row">
@@ -103,30 +95,30 @@
                 </div>
               </div>
 
-              <div class="row mt-4">
+              <div class="row mt-4" *ngIf="nextPayment() as nextPayment">
                 <div class="col-12">
                   <div class="alert alert-info">
                     <h5><i class="icon fas fa-info"></i> Próximo Pago</h5>
-                    <p class="mb-0">
-                      {{ loan.payment_amount | currency }} el  {{ loan.start_date | date: 'dd/MM/yyyy' }}
+                    <p>
+                      {{ nextPayment.amount | currency }} el  {{ nextPayment.due_date | date: 'dd/MM/yyyy' }}
                     </p>
+                    <div *ngIf="nextPayment.status === 'pending'">
+                      <a class="btn btn-dark btn-payment" [routerLink]="['/admin/payments', nextPayment.id, 'pay']">
+                        <i class="fas fa-plus mr-1"></i> Registrar Pago
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Payment History -->
-          <div class="card">
+          <!-- Overdue Payments -->
+          <div class="card" *ngIf="overduePayments().length > 0">
             <div class="card-header">
               <h3 class="card-title">Pagos Recibidos</h3>
             </div>
-            <div class="card-body table-responsive p-4" *ngIf="payments().length == 0">
-              <div class="alert alert-warning">
-                <div class="p-2"><i class="fas fa-exclamation-triangle mr-2"></i> No hay préstamos para mostrar.</div>
-              </div>
-            </div>
-            <div class="card-body table-responsive p-0" *ngIf="payments().length > 0">
+            <div class="card-body table-responsive p-0">
               <table class="table table-hover text-nowrap">
                 <thead>
                   <tr>
@@ -137,7 +129,43 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let payment of payments()">
+                  <tr *ngFor="let payment of overduePayments()">
+                    <td>{{ payment.id }}</td>
+                    <td>{{ payment.due_date | date }}</td>
+                    <td>{{ payment.payment_total | currency }}</td>
+                    <td>
+                      <span [class]="'badge ' + getStatusBadgeClass(payment.status)">
+                        {{ payment.status }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Payment History -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Pagos Recibidos</h3>
+            </div>
+            <div class="card-body table-responsive p-4" *ngIf="paidPayments().length == 0">
+              <div class="alert alert-warning">
+                <div class="p-2"><i class="fas fa-exclamation-triangle mr-2"></i> No se han recibido pagos.</div>
+              </div>
+            </div>
+            <div class="card-body table-responsive p-0" *ngIf="paidPayments().length > 0">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Fecha Pago</th>
+                    <th>Monto</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let payment of paidPayments()">
                     <td>{{ payment.id }}</td>
                     <td>{{ payment.payment_date | date }}</td>
                     <td>{{ payment.payment_total | currency }}</td>

@@ -13,6 +13,9 @@ export interface CreatePaymentRequest {
     notes: string;
 }
 
+interface FetchPaymentResponse {
+    payment: PaymentJson;
+}
 
 
 @Injectable({
@@ -23,8 +26,15 @@ export class PaymentsService {
     constructor(private api: ApiService) {
     }
 
-    addPayment(loanId: string, paymentInfo: Partial<CreatePaymentRequest>): Observable<Payment> {
-        return this.api.post<PaymentJson>(`payments/${loanId}`, paymentInfo)
+    getPayment(paymentId: string): Observable<Payment> {
+        return this.api.get<FetchPaymentResponse>(`payments/${paymentId}`)
+            .pipe(
+                map(json => new Payment(json.payment))
+            );
+    }
+
+    addPayment(paymentId: string, paymentInfo: Partial<CreatePaymentRequest>): Observable<Payment> {
+        return this.api.put<PaymentJson>(`payments/${paymentId}`, paymentInfo)
             .pipe(
                 map(json => new Payment(json))
             );

@@ -35,22 +35,28 @@ export interface LoanJson {
     notes?: string;
     created_at?: string;
     updated_at?: string;
+    customer?: any;
+    next_payment?: any;
 }
 
 export interface PaymentJson {
     id: string;
     customer_id: string;
     loan_id: string;
+    amount: number;
+    due_date: string;
     payment_date: string;
+    payment_total: number;
     payment_capital: number;
     payment_interest: number;
     payment_delay: number;
-    payment_total: number;
     payment_method: string;
     notes: string;
     status: string;
     created_at: string;
     updated_at: string;
+    customer?: any;
+    loan?: any;
 }
 
 export interface AssociateJson {

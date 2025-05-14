@@ -1,3 +1,5 @@
+import { Customer } from './customer';
+import { Payment } from './payment';
 import { LoanJson, PaymentJson, CustomerJson, AssociateJson } from './types';
 
 
@@ -24,12 +26,22 @@ export class Loan implements LoanJson {
     created_at?: string;
     updated_at?: string;
 
-    customer!: CustomerJson;
+    customer: Customer;
     associates: AssociateJson[] = [];
     payments: PaymentJson[] = [];
+    nextPayment?: Payment;
 
     constructor(data: Partial<LoanJson> = {}) {
         Object.assign(this, data);
+        this.customer = new Customer(data.customer);
+        this.nextPayment = data.next_payment ? new Payment(data.next_payment) : undefined;
+    }
+
+    hasPendingPayment(): boolean {
+        if( !this.nextPayment ) {
+            return false;
+        }
+        return this.nextPayment.status === 'pending';
     }
 
 }
